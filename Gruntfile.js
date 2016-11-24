@@ -1,5 +1,16 @@
 'use strict';
 
+
+var sources = [
+    'src/banner.js',
+    'src/constants.js',
+    'src/helpers.js',
+    'src/algorithms.js',
+    'src/duration.js',
+    'src/date.js',
+    'src/compat.js'
+];
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -14,12 +25,13 @@ module.exports = function(grunt) {
     // Task configuration.
     concat: {
       options: {
+		stripBanners: true,
         banner: '<%= banner %>',
         stripBanners: true
       },
       dist: {
-        src: ['lib/<%= pkg.name %>.js'],
-        dest: 'dist/<%= pkg.name %>.js'
+        src: sources,
+        dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
       },
     },
     uglify: {
@@ -27,7 +39,7 @@ module.exports = function(grunt) {
         banner: '<%= banner %>'
       },
       dist: {
-        src: '<%= concat.dist.dest %>',
+        src: sources,
         dest: 'dist/<%= pkg.name %>.min.js'
       },
     },
